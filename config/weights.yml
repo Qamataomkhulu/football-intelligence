@@ -1,0 +1,42 @@
+# Weight configuration for the Structural / Friction scoring model.
+# Changing these numbers re-tunes the model without touching code.
+# All sub-scores are integers on [0, max]; totals are documented in README.
+
+structural:
+  first_xi_quality:      { max: 20 }
+  bench_quality:         { max: 10 }
+  current_form:          { max: 15 }
+  home_away:             { max: 10 }
+  tactical_fit:          { max: 15 }
+  xg_chance_creation:    { max: 10 }
+  opposition_quality:    { max: 5 }
+  europe_cup_experience: { max: 5 }
+  # total max = 90
+
+friction:
+  injuries:              { max: 5 }
+  suspensions:            { max: 4 }
+  rotation_schedule:      { max: 5 }
+  new_signings:           { max: 3 }
+  transfer_uncertainty:   { max: 2 }
+  manager_change:         { max: 4 }
+  off_field_noise:        { max: 2 }
+  # total max = 25
+  # NOTE: off_field_noise is intentionally the smallest weight. A headline
+  # like "player unhappy" should never outweigh XI + bench + xG + tactics.
+
+# Structural + Friction combine into a single 0-100 "power rating" per team:
+#   power_rating = (structural / 90) * 0.75 * 100 + ((25 - friction) / 25) * 0.25 * 100
+combine:
+  structural_share: 0.75
+  friction_share: 0.25
+
+# Minimum consensus gap (percentage points) before a market is even considered
+# for Ticket A / Ticket B.
+consensus:
+  min_gap_ticket_a: 8
+  min_gap_ticket_b: 15
+
+# Market survival: minimum (model_prob / market_implied_prob) ratio to qualify.
+market_survival:
+  min_ratio: 1.05

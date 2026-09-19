@@ -1,0 +1,62 @@
+# Candidate markets the Market Survival engine scores for every fixture.
+# "kind" tells the probability engine (backend/markets/survival.py) which
+# closed-form calculation to use.
+
+markets:
+  - code: WIN_HOME
+    label: "Home WIN"
+    kind: result
+  - code: WIN_AWAY
+    label: "Away WIN"
+    kind: result
+  - code: DNB_HOME
+    label: "Home DNB"
+    kind: dnb
+  - code: DNB_AWAY
+    label: "Away DNB"
+    kind: dnb
+  - code: 1X
+    label: "Home or Draw (1X)"
+    kind: double_chance
+  - code: X2
+    label: "Away or Draw (X2)"
+    kind: double_chance
+  - code: HOME_PLUS_0_5
+    label: "Home +0.5"
+    kind: handicap
+  - code: AWAY_PLUS_0_5
+    label: "Away +0.5"
+    kind: handicap
+  - code: HOME_PLUS_1_5
+    label: "Home +1.5"
+    kind: handicap
+  - code: AWAY_PLUS_1_5
+    label: "Away +1.5"
+    kind: handicap
+  - code: OVER_1_5
+    label: "Over 1.5 goals"
+    kind: total_goals
+  - code: OVER_2_5
+    label: "Over 2.5 goals"
+    kind: total_goals
+  - code: BTTS
+    label: "Both Teams to Score"
+    kind: btts
+  - code: BTTS_OVER_2_5
+    label: "BTTS + Over 2.5"
+    kind: combo
+  - code: WIN_OVER_1_5
+    label: "Win + Over 1.5"
+    kind: combo
+  - code: WIN_BTTS
+    label: "Win + BTTS"
+    kind: combo
+  - code: TEAM_OVER_1_5
+    label: "Team Over 1.5"
+    kind: team_goals
+  - code: TEAM_SCORE_BOTH_HALVES
+    label: "Team scores in both halves"
+    kind: both_halves
+  - code: HT_FT
+    label: "HT/FT"
+    kind: ht_ft

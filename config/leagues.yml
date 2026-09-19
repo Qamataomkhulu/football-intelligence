@@ -1,0 +1,49 @@
+# MVP league scope. Add more once calibration on this set is stable.
+# `sportmonks_id` is left null - fill in from the Sportmonks /leagues endpoint
+# once an API key is configured.
+
+phase_1:
+  - name: Premier League
+    country: England
+    sportmonks_id: null
+  - name: La Liga
+    country: Spain
+    sportmonks_id: null
+  - name: Serie A
+    country: Italy
+    sportmonks_id: null
+  - name: Bundesliga
+    country: Germany
+    sportmonks_id: null
+  - name: Ligue 1
+    country: France
+    sportmonks_id: null
+  - name: Champions League
+    country: Europe
+    sportmonks_id: null
+  - name: Europa League
+    country: Europe
+    sportmonks_id: null
+
+phase_2:
+  - name: Eredivisie
+    country: Netherlands
+    sportmonks_id: null
+  - name: Primeira Liga
+    country: Portugal
+    sportmonks_id: null
+  - name: Pro League
+    country: Belgium
+    sportmonks_id: null
+  - name: Super Lig
+    country: Turkey
+    sportmonks_id: null
+  - name: Scottish Premiership
+    country: Scotland
+    sportmonks_id: null
+  - name: PSL
+    country: South Africa
+    sportmonks_id: null
+  - name: Brasileirao
+    country: Brazil
+    sportmonks_id: null
