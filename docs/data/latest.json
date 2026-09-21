@@ -1,0 +1,829 @@
+{
+  "generated_at": "2026-09-21T08:38:09.631594+00:00",
+  "summary": {
+    "matches_scanned": 3,
+    "matches_analysed": 3,
+    "ticket_a_count": 2,
+    "ticket_b_count": 3
+  },
+  "tickets": {
+    "ticket_a": {
+      "selections": [
+        {
+          "fixture_id": "sample-002",
+          "match": "Bournemouth vs Liverpool",
+          "ticket": "A",
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.4722,
+          "market_implied_probability": 0.1667,
+          "edge_ratio": 2.833,
+          "consensus_gap_pp": 30.56,
+          "trap_score": 96.6,
+          "reasons": [
+            "Bournemouth positive xG trend (1.70 for vs 1.00 against).",
+            "Bournemouth strong recent form (1.9 pts/game).",
+            "Bournemouth low friction - clean bill of health."
+          ],
+          "risks": [
+            "Liverpool: 2 key injury absence(s).",
+            "Liverpool: fixture congestion (5 matches in 14 days)."
+          ],
+          "ticket_c": null
+        },
+        {
+          "fixture_id": "sample-001",
+          "match": "Brentford vs Chelsea",
+          "ticket": "A",
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.6074,
+          "market_implied_probability": 0.2174,
+          "edge_ratio": 2.794,
+          "consensus_gap_pp": 39.0,
+          "trap_score": 94.0,
+          "reasons": [
+            "Brentford positive xG trend (1.60 for vs 1.10 against).",
+            "Brentford strong recent form (1.8 pts/game).",
+            "Brentford low friction - clean bill of health."
+          ],
+          "risks": [
+            "Chelsea: 3 key injury absence(s).",
+            "Chelsea: fixture congestion (4 matches in 14 days).",
+            "Chelsea: new manager, tactical settling risk.",
+            "Chelsea: elevated overall friction (14.9/25)."
+          ],
+          "ticket_c": null
+        }
+      ],
+      "target_odds": 27.6
+    },
+    "ticket_b": {
+      "selections": [
+        {
+          "fixture_id": "sample-002",
+          "match": "Bournemouth vs Liverpool",
+          "ticket": "B",
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.4722,
+          "market_implied_probability": 0.1667,
+          "edge_ratio": 2.833,
+          "consensus_gap_pp": 30.56,
+          "trap_score": 96.6,
+          "reasons": [
+            "Bournemouth positive xG trend (1.70 for vs 1.00 against).",
+            "Bournemouth strong recent form (1.9 pts/game).",
+            "Bournemouth low friction - clean bill of health."
+          ],
+          "risks": [
+            "Liverpool: 2 key injury absence(s).",
+            "Liverpool: fixture congestion (5 matches in 14 days)."
+          ],
+          "ticket_c": {
+            "ticket_b_market": "WIN_HOME",
+            "ticket_c_market": "TEAM_SCORE_BOTH_HALVES",
+            "reason": "'Team scores in both halves' extends the Ticket B thesis with the strongest surviving ratio (2.060376763964896) among plausible goal/half/result refinements.",
+            "ticket_b": {
+              "market_code": "WIN_HOME",
+              "label": "Home WIN",
+              "model_probability": 0.4722,
+              "market_implied_probability": 0.1667,
+              "ratio": 2.833
+            },
+            "ticket_c": {
+              "market_code": "TEAM_SCORE_BOTH_HALVES",
+              "label": "Team scores in both halves",
+              "model_probability": 0.2943,
+              "market_implied_probability": 0.1429,
+              "ratio": 2.06
+            }
+          }
+        },
+        {
+          "fixture_id": "sample-001",
+          "match": "Brentford vs Chelsea",
+          "ticket": "B",
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.6074,
+          "market_implied_probability": 0.2174,
+          "edge_ratio": 2.794,
+          "consensus_gap_pp": 39.0,
+          "trap_score": 94.0,
+          "reasons": [
+            "Brentford positive xG trend (1.60 for vs 1.10 against).",
+            "Brentford strong recent form (1.8 pts/game).",
+            "Brentford low friction - clean bill of health."
+          ],
+          "risks": [
+            "Chelsea: 3 key injury absence(s).",
+            "Chelsea: fixture congestion (4 matches in 14 days).",
+            "Chelsea: new manager, tactical settling risk.",
+            "Chelsea: elevated overall friction (14.9/25)."
+          ],
+          "ticket_c": {
+            "ticket_b_market": "WIN_HOME",
+            "ticket_c_market": "TEAM_SCORE_BOTH_HALVES",
+            "reason": "'Team scores in both halves' extends the Ticket B thesis with the strongest surviving ratio (2.359116871227953) among plausible goal/half/result refinements.",
+            "ticket_b": {
+              "market_code": "WIN_HOME",
+              "label": "Home WIN",
+              "model_probability": 0.6074,
+              "market_implied_probability": 0.2174,
+              "ratio": 2.794
+            },
+            "ticket_c": {
+              "market_code": "TEAM_SCORE_BOTH_HALVES",
+              "label": "Team scores in both halves",
+              "model_probability": 0.3629,
+              "market_implied_probability": 0.1538,
+              "ratio": 2.359
+            }
+          }
+        },
+        {
+          "fixture_id": "sample-003",
+          "match": "Bayern Munich vs Union Berlin",
+          "ticket": "B",
+          "market_code": "HOME_PLUS_1_5",
+          "label": "Home +1.5",
+          "model_probability": 0.9852,
+          "market_implied_probability": 0.7576,
+          "edge_ratio": 1.3,
+          "consensus_gap_pp": 22.76,
+          "trap_score": 83.3,
+          "reasons": [
+            "Bayern Munich structural rating is strong (85%).",
+            "Bayern Munich positive xG trend (2.60 for vs 0.80 against).",
+            "Bayern Munich strong recent form (2.4 pts/game).",
+            "Bayern Munich low friction - clean bill of health."
+          ],
+          "risks": [
+            "Union Berlin: 1 key injury absence(s)."
+          ],
+          "ticket_c": {
+            "ticket_b_market": "HOME_PLUS_1_5",
+            "ticket_c_market": null,
+            "reason": "No refinement of the Ticket B edge survives the minimum ratio threshold (1.05); Ticket C stays at the Ticket B market to avoid an overly-specific goal-market penalty.",
+            "ticket_b": {
+              "market_code": "HOME_PLUS_1_5",
+              "label": "Home +1.5",
+              "model_probability": 0.9852,
+              "market_implied_probability": 0.7576,
+              "ratio": 1.3
+            },
+            "ticket_c": null
+          }
+        }
+      ],
+      "target_odds": 36.43
+    }
+  },
+  "fixtures": [
+    {
+      "fixture_id": "sample-001",
+      "home_team": "Brentford",
+      "away_team": "Chelsea",
+      "home_power_rating": {
+        "structural_pct": 62.9,
+        "friction_pct": 1.0,
+        "rating": 72.0
+      },
+      "away_power_rating": {
+        "structural_pct": 62.3,
+        "friction_pct": 59.5,
+        "rating": 56.8
+      },
+      "home_structural": {
+        "first_xi_quality": 13.6,
+        "bench_quality": 5.5,
+        "current_form": 9.0,
+        "home_away": 7.2,
+        "tactical_fit": 10.5,
+        "xg_chance_creation": 6.25,
+        "opposition_quality": 4.1,
+        "europe_cup_experience": 0.5,
+        "total": 56.65,
+        "max_total": 90,
+        "pct": 62.9
+      },
+      "away_structural": {
+        "first_xi_quality": 16.0,
+        "bench_quality": 7.4,
+        "current_form": 7.0,
+        "home_away": 6.0,
+        "tactical_fit": 8.25,
+        "xg_chance_creation": 4.75,
+        "opposition_quality": 3.4,
+        "europe_cup_experience": 3.25,
+        "total": 56.05,
+        "max_total": 90,
+        "pct": 62.3
+      },
+      "home_friction": {
+        "injuries": 0.25,
+        "suspensions": 0.0,
+        "rotation_schedule": 0.0,
+        "new_signings": 0.0,
+        "transfer_uncertainty": 0.0,
+        "manager_change": 0.0,
+        "off_field_noise": 0.0,
+        "total": 0.25,
+        "max_total": 25
+      },
+      "away_friction": {
+        "injuries": 5.0,
+        "suspensions": 1.4,
+        "rotation_schedule": 2.5,
+        "new_signings": 1.5,
+        "transfer_uncertainty": 0.6,
+        "manager_change": 2.67,
+        "off_field_noise": 1.2,
+        "total": 14.87,
+        "max_total": 25
+      },
+      "expected_goals": {
+        "home": 1.84,
+        "away": 0.86
+      },
+      "markets": [
+        {
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.6074,
+          "market_implied_probability": 0.2174,
+          "ratio": 2.794
+        },
+        {
+          "market_code": "WIN_AWAY",
+          "label": "Away WIN",
+          "model_probability": 0.1694,
+          "market_implied_probability": 0.5814,
+          "ratio": 0.291
+        },
+        {
+          "market_code": "DNB_HOME",
+          "label": "Home DNB",
+          "model_probability": 0.7819,
+          "market_implied_probability": 0.3226,
+          "ratio": 2.424
+        },
+        {
+          "market_code": "DNB_AWAY",
+          "label": "Away DNB",
+          "model_probability": 0.2181,
+          "market_implied_probability": 0.7353,
+          "ratio": 0.297
+        },
+        {
+          "market_code": "1X",
+          "label": "Home or Draw (1X)",
+          "model_probability": 0.8306,
+          "market_implied_probability": 0.6452,
+          "ratio": 1.287
+        },
+        {
+          "market_code": "X2",
+          "label": "Away or Draw (X2)",
+          "model_probability": 0.3926,
+          "market_implied_probability": 0.7812,
+          "ratio": 0.502
+        },
+        {
+          "market_code": "HOME_PLUS_0_5",
+          "label": "Home +0.5",
+          "model_probability": 0.8306,
+          "market_implied_probability": 0.6452,
+          "ratio": 1.287
+        },
+        {
+          "market_code": "AWAY_PLUS_0_5",
+          "label": "Away +0.5",
+          "model_probability": 0.3926,
+          "market_implied_probability": 0.7812,
+          "ratio": 0.502
+        },
+        {
+          "market_code": "HOME_PLUS_1_5",
+          "label": "Home +1.5",
+          "model_probability": 0.947,
+          "market_implied_probability": 0.8197,
+          "ratio": 1.155
+        },
+        {
+          "market_code": "AWAY_PLUS_1_5",
+          "label": "Away +1.5",
+          "model_probability": 0.6437,
+          "market_implied_probability": 0.9259,
+          "ratio": 0.695
+        },
+        {
+          "market_code": "OVER_1_5",
+          "label": "Over 1.5 goals",
+          "model_probability": 0.7513,
+          "market_implied_probability": 0.7407,
+          "ratio": 1.014
+        },
+        {
+          "market_code": "OVER_2_5",
+          "label": "Over 2.5 goals",
+          "model_probability": 0.5064,
+          "market_implied_probability": 0.5128,
+          "ratio": 0.987
+        },
+        {
+          "market_code": "BTTS",
+          "label": "Both Teams to Score",
+          "model_probability": 0.4839,
+          "market_implied_probability": 0.6061,
+          "ratio": 0.798
+        },
+        {
+          "market_code": "BTTS_OVER_2_5",
+          "label": "BTTS + Over 2.5",
+          "model_probability": 0.3779,
+          "market_implied_probability": 0.4878,
+          "ratio": 0.775
+        },
+        {
+          "market_code": "WIN_OVER_1_5",
+          "label": "Win + Over 1.5",
+          "model_probability": 0.5954,
+          "market_implied_probability": 0.3846,
+          "ratio": 1.548
+        },
+        {
+          "market_code": "WIN_BTTS",
+          "label": "Win + BTTS",
+          "model_probability": 0.328,
+          "market_implied_probability": 0.3226,
+          "ratio": 1.017
+        },
+        {
+          "market_code": "TEAM_OVER_1_5",
+          "label": "Team Over 1.5",
+          "model_probability": 0.5504,
+          "market_implied_probability": 0.3448,
+          "ratio": 1.596
+        },
+        {
+          "market_code": "TEAM_SCORE_BOTH_HALVES",
+          "label": "Team scores in both halves",
+          "model_probability": 0.3629,
+          "market_implied_probability": 0.1538,
+          "ratio": 2.359
+        },
+        {
+          "market_code": "HT_FT",
+          "label": "HT/FT",
+          "model_probability": 0.2141,
+          "market_implied_probability": 0.1923,
+          "ratio": 1.113
+        }
+      ],
+      "reasons_home": [
+        "Brentford positive xG trend (1.60 for vs 1.10 against).",
+        "Brentford strong recent form (1.8 pts/game).",
+        "Brentford low friction - clean bill of health."
+      ],
+      "reasons_away": [],
+      "risks": [
+        "Chelsea: 3 key injury absence(s).",
+        "Chelsea: fixture congestion (4 matches in 14 days).",
+        "Chelsea: new manager, tactical settling risk.",
+        "Chelsea: elevated overall friction (14.9/25)."
+      ]
+    },
+    {
+      "fixture_id": "sample-002",
+      "home_team": "Bournemouth",
+      "away_team": "Liverpool",
+      "home_power_rating": {
+        "structural_pct": 62.8,
+        "friction_pct": 0.0,
+        "rating": 72.1
+      },
+      "away_power_rating": {
+        "structural_pct": 74.6,
+        "friction_pct": 34.2,
+        "rating": 72.4
+      },
+      "home_structural": {
+        "first_xi_quality": 13.2,
+        "bench_quality": 5.2,
+        "current_form": 9.5,
+        "home_away": 7.0,
+        "tactical_fit": 10.2,
+        "xg_chance_creation": 6.75,
+        "opposition_quality": 4.4,
+        "europe_cup_experience": 0.25,
+        "total": 56.5,
+        "max_total": 90,
+        "pct": 62.8
+      },
+      "away_structural": {
+        "first_xi_quality": 17.6,
+        "bench_quality": 7.8,
+        "current_form": 10.0,
+        "home_away": 8.2,
+        "tactical_fit": 9.0,
+        "xg_chance_creation": 7.25,
+        "opposition_quality": 3.3,
+        "europe_cup_experience": 4.0,
+        "total": 67.15,
+        "max_total": 90,
+        "pct": 74.6
+      },
+      "home_friction": {
+        "injuries": 0.0,
+        "suspensions": 0.0,
+        "rotation_schedule": 0.0,
+        "new_signings": 0.0,
+        "transfer_uncertainty": 0.0,
+        "manager_change": 0.0,
+        "off_field_noise": 0.0,
+        "total": 0.0,
+        "max_total": 25
+      },
+      "away_friction": {
+        "injuries": 3.75,
+        "suspensions": 0.0,
+        "rotation_schedule": 3.75,
+        "new_signings": 0.75,
+        "transfer_uncertainty": 0.0,
+        "manager_change": 0.0,
+        "off_field_noise": 0.3,
+        "total": 8.55,
+        "max_total": 25
+      },
+      "expected_goals": {
+        "home": 1.56,
+        "away": 1.14
+      },
+      "markets": [
+        {
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.4722,
+          "market_implied_probability": 0.1667,
+          "ratio": 2.833
+        },
+        {
+          "market_code": "WIN_AWAY",
+          "label": "Away WIN",
+          "model_probability": 0.2764,
+          "market_implied_probability": 0.6452,
+          "ratio": 0.428
+        },
+        {
+          "market_code": "DNB_HOME",
+          "label": "Home DNB",
+          "model_probability": 0.6308,
+          "market_implied_probability": 0.2778,
+          "ratio": 2.271
+        },
+        {
+          "market_code": "DNB_AWAY",
+          "label": "Away DNB",
+          "model_probability": 0.3692,
+          "market_implied_probability": 0.7692,
+          "ratio": 0.48
+        },
+        {
+          "market_code": "1X",
+          "label": "Home or Draw (1X)",
+          "model_probability": 0.7236,
+          "market_implied_probability": 0.5882,
+          "ratio": 1.23
+        },
+        {
+          "market_code": "X2",
+          "label": "Away or Draw (X2)",
+          "model_probability": 0.5278,
+          "market_implied_probability": 0.8197,
+          "ratio": 0.644
+        },
+        {
+          "market_code": "HOME_PLUS_0_5",
+          "label": "Home +0.5",
+          "model_probability": 0.7236,
+          "market_implied_probability": 0.5882,
+          "ratio": 1.23
+        },
+        {
+          "market_code": "AWAY_PLUS_0_5",
+          "label": "Away +0.5",
+          "model_probability": 0.5278,
+          "market_implied_probability": 0.8197,
+          "ratio": 0.644
+        },
+        {
+          "market_code": "HOME_PLUS_1_5",
+          "label": "Home +1.5",
+          "model_probability": 0.8911,
+          "market_implied_probability": 0.7812,
+          "ratio": 1.141
+        },
+        {
+          "market_code": "AWAY_PLUS_1_5",
+          "label": "Away +1.5",
+          "model_probability": 0.7584,
+          "market_implied_probability": 0.9434,
+          "ratio": 0.804
+        },
+        {
+          "market_code": "OVER_1_5",
+          "label": "Over 1.5 goals",
+          "model_probability": 0.7513,
+          "market_implied_probability": 0.7692,
+          "ratio": 0.977
+        },
+        {
+          "market_code": "OVER_2_5",
+          "label": "Over 2.5 goals",
+          "model_probability": 0.5064,
+          "market_implied_probability": 0.5405,
+          "ratio": 0.937
+        },
+        {
+          "market_code": "BTTS",
+          "label": "Both Teams to Score",
+          "model_probability": 0.5368,
+          "market_implied_probability": 0.5882,
+          "ratio": 0.913
+        },
+        {
+          "market_code": "BTTS_OVER_2_5",
+          "label": "BTTS + Over 2.5",
+          "model_probability": 0.4174,
+          "market_implied_probability": 0.4762,
+          "ratio": 0.877
+        },
+        {
+          "market_code": "WIN_OVER_1_5",
+          "label": "Win + Over 1.5",
+          "model_probability": 0.5672,
+          "market_implied_probability": 0.4348,
+          "ratio": 1.305
+        },
+        {
+          "market_code": "WIN_BTTS",
+          "label": "Win + BTTS",
+          "model_probability": 0.3526,
+          "market_implied_probability": 0.3571,
+          "ratio": 0.987
+        },
+        {
+          "market_code": "TEAM_OVER_1_5",
+          "label": "Team Over 1.5",
+          "model_probability": 0.4634,
+          "market_implied_probability": 0.3226,
+          "ratio": 1.437
+        },
+        {
+          "market_code": "TEAM_SCORE_BOTH_HALVES",
+          "label": "Team scores in both halves",
+          "model_probability": 0.2943,
+          "market_implied_probability": 0.1429,
+          "ratio": 2.06
+        },
+        {
+          "market_code": "HT_FT",
+          "label": "HT/FT",
+          "model_probability": 0.1378,
+          "market_implied_probability": 0.1818,
+          "ratio": 0.758
+        }
+      ],
+      "reasons_home": [
+        "Bournemouth positive xG trend (1.70 for vs 1.00 against).",
+        "Bournemouth strong recent form (1.9 pts/game).",
+        "Bournemouth low friction - clean bill of health."
+      ],
+      "reasons_away": [
+        "Liverpool structural rating is strong (75%).",
+        "Liverpool positive xG trend (2.10 for vs 1.20 against).",
+        "Liverpool strong recent form (2.0 pts/game)."
+      ],
+      "risks": [
+        "Liverpool: 2 key injury absence(s).",
+        "Liverpool: fixture congestion (5 matches in 14 days)."
+      ]
+    },
+    {
+      "fixture_id": "sample-003",
+      "home_team": "Bayern Munich",
+      "away_team": "Union Berlin",
+      "home_power_rating": {
+        "structural_pct": 84.6,
+        "friction_pct": 1.0,
+        "rating": 88.2
+      },
+      "away_power_rating": {
+        "structural_pct": 41.6,
+        "friction_pct": 8.0,
+        "rating": 54.2
+      },
+      "home_structural": {
+        "first_xi_quality": 18.4,
+        "bench_quality": 8.0,
+        "current_form": 12.0,
+        "home_away": 9.0,
+        "tactical_fit": 12.75,
+        "xg_chance_creation": 9.5,
+        "opposition_quality": 2.0,
+        "europe_cup_experience": 4.5,
+        "total": 76.15,
+        "max_total": 90,
+        "pct": 84.6
+      },
+      "away_structural": {
+        "first_xi_quality": 11.0,
+        "bench_quality": 4.2,
+        "current_form": 4.5,
+        "home_away": 4.5,
+        "tactical_fit": 6.0,
+        "xg_chance_creation": 2.25,
+        "opposition_quality": 4.5,
+        "europe_cup_experience": 0.5,
+        "total": 37.45,
+        "max_total": 90,
+        "pct": 41.6
+      },
+      "home_friction": {
+        "injuries": 0.25,
+        "suspensions": 0.0,
+        "rotation_schedule": 0.0,
+        "new_signings": 0.0,
+        "transfer_uncertainty": 0.0,
+        "manager_change": 0.0,
+        "off_field_noise": 0.0,
+        "total": 0.25,
+        "max_total": 25
+      },
+      "away_friction": {
+        "injuries": 2.0,
+        "suspensions": 0.0,
+        "rotation_schedule": 0.0,
+        "new_signings": 0.0,
+        "transfer_uncertainty": 0.0,
+        "manager_change": 0.0,
+        "off_field_noise": 0.0,
+        "total": 2.0,
+        "max_total": 25
+      },
+      "expected_goals": {
+        "home": 2.19,
+        "away": 0.51
+      },
+      "markets": [
+        {
+          "market_code": "WIN_HOME",
+          "label": "Home WIN",
+          "model_probability": 0.7612,
+          "market_implied_probability": 0.8197,
+          "ratio": 0.929
+        },
+        {
+          "market_code": "WIN_AWAY",
+          "label": "Away WIN",
+          "model_probability": 0.0724,
+          "market_implied_probability": 0.0909,
+          "ratio": 0.797
+        },
+        {
+          "market_code": "DNB_HOME",
+          "label": "Home DNB",
+          "model_probability": 0.9131,
+          "market_implied_probability": 0.8929,
+          "ratio": 1.023
+        },
+        {
+          "market_code": "DNB_AWAY",
+          "label": "Away DNB",
+          "model_probability": 0.0869,
+          "market_implied_probability": 0.1471,
+          "ratio": 0.591
+        },
+        {
+          "market_code": "1X",
+          "label": "Home or Draw (1X)",
+          "model_probability": 0.9276,
+          "market_implied_probability": 0.9091,
+          "ratio": 1.02
+        },
+        {
+          "market_code": "X2",
+          "label": "Away or Draw (X2)",
+          "model_probability": 0.2388,
+          "market_implied_probability": 0.2174,
+          "ratio": 1.098
+        },
+        {
+          "market_code": "HOME_PLUS_0_5",
+          "label": "Home +0.5",
+          "model_probability": 0.9276,
+          "market_implied_probability": 0.9091,
+          "ratio": 1.02
+        },
+        {
+          "market_code": "AWAY_PLUS_0_5",
+          "label": "Away +0.5",
+          "model_probability": 0.2388,
+          "market_implied_probability": 0.2174,
+          "ratio": 1.098
+        },
+        {
+          "market_code": "HOME_PLUS_1_5",
+          "label": "Home +1.5",
+          "model_probability": 0.9852,
+          "market_implied_probability": 0.7576,
+          "ratio": 1.3
+        },
+        {
+          "market_code": "AWAY_PLUS_1_5",
+          "label": "Away +1.5",
+          "model_probability": 0.4851,
+          "market_implied_probability": 0.3846,
+          "ratio": 1.261
+        },
+        {
+          "market_code": "OVER_1_5",
+          "label": "Over 1.5 goals",
+          "model_probability": 0.7513,
+          "market_implied_probability": 0.8696,
+          "ratio": 0.864
+        },
+        {
+          "market_code": "OVER_2_5",
+          "label": "Over 2.5 goals",
+          "model_probability": 0.5064,
+          "market_implied_probability": 0.7042,
+          "ratio": 0.719
+        },
+        {
+          "market_code": "BTTS",
+          "label": "Both Teams to Score",
+          "model_probability": 0.3557,
+          "market_implied_probability": 0.5,
+          "ratio": 0.711
+        },
+        {
+          "market_code": "BTTS_OVER_2_5",
+          "label": "BTTS + Over 2.5",
+          "model_probability": 0.2804,
+          "market_implied_probability": 0.4348,
+          "ratio": 0.645
+        },
+        {
+          "market_code": "WIN_OVER_1_5",
+          "label": "Win + Over 1.5",
+          "model_probability": 0.6522,
+          "market_implied_probability": 0.7407,
+          "ratio": 0.88
+        },
+        {
+          "market_code": "WIN_BTTS",
+          "label": "Win + BTTS",
+          "model_probability": 0.2565,
+          "market_implied_probability": 0.4,
+          "ratio": 0.641
+        },
+        {
+          "market_code": "TEAM_OVER_1_5",
+          "label": "Team Over 1.5",
+          "model_probability": 0.6425,
+          "market_implied_probability": 0.8333,
+          "ratio": 0.771
+        },
+        {
+          "market_code": "TEAM_SCORE_BOTH_HALVES",
+          "label": "Team scores in both halves",
+          "model_probability": 0.4424,
+          "market_implied_probability": 0.3846,
+          "ratio": 1.15
+        },
+        {
+          "market_code": "HT_FT",
+          "label": "HT/FT",
+          "model_probability": 0.3326,
+          "market_implied_probability": 0.4762,
+          "ratio": 0.698
+        }
+      ],
+      "reasons_home": [
+        "Bayern Munich structural rating is strong (85%).",
+        "Bayern Munich positive xG trend (2.60 for vs 0.80 against).",
+        "Bayern Munich strong recent form (2.4 pts/game).",
+        "Bayern Munich low friction - clean bill of health."
+      ],
+      "reasons_away": [
+        "Union Berlin low friction - clean bill of health."
+      ],
+      "risks": [
+        "Union Berlin: 1 key injury absence(s)."
+      ]
+    }
+  ]
+}
