@@ -1,0 +1,12 @@
+[
+  { "fixture_id": "hist-001", "market_code": "1X", "model_probability": 0.74, "won": true },
+  { "fixture_id": "hist-002", "market_code": "1X", "model_probability": 0.67, "won": false, "loss_type": "injury_overweighted" },
+  { "fixture_id": "hist-003", "market_code": "BTTS_OVER_2_5", "model_probability": 0.72, "won": false, "loss_type": "market_price_wrong" },
+  { "fixture_id": "hist-004", "market_code": "1X", "model_probability": 0.71, "won": true },
+  { "fixture_id": "hist-005", "market_code": "TEAM_SCORE_BOTH_HALVES", "model_probability": 0.14, "won": false, "loss_type": "goal_market_too_specific" },
+  { "fixture_id": "hist-006", "market_code": "X2", "model_probability": 0.63, "won": true },
+  { "fixture_id": "hist-007", "market_code": "HOME_PLUS_1_5", "model_probability": 0.81, "won": true },
+  { "fixture_id": "hist-008", "market_code": "WIN_HOME", "model_probability": 0.58, "won": false, "loss_type": "opponent_underestimated" },
+  { "fixture_id": "hist-009", "market_code": "1X", "model_probability": 0.76, "won": true },
+  { "fixture_id": "hist-010", "market_code": "OVER_1_5", "model_probability": 0.83, "won": true }
+]
