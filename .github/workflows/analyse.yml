@@ -16,6 +16,9 @@ on:
     - cron: "*/30 16-22 * * TUE,WED,THU"
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   reanalyse:
     runs-on: ubuntu-latest
@@ -37,10 +40,18 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python scripts/run_pipeline.py
 
+      - name: Sync dashboard data for GitHub Pages
+        run: |
+          mkdir -p docs/data
+          cp data/predictions/latest.json docs/data/latest.json
+          if [ -f data/predictions/performance.json ]; then
+            cp data/predictions/performance.json docs/data/performance.json
+          fi
+
       - name: Commit updated predictions
         run: |
           git config user.name "football-intelligence-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/predictions/latest.json
+          git add data/predictions/latest.json docs/data/latest.json docs/data/performance.json
           git diff --cached --quiet || git commit -m "Reanalysis: $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push

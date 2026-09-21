@@ -5,6 +5,9 @@ on:
     - cron: "0 6 * * *"  # after overnight fixtures have finished
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   settle:
     runs-on: ubuntu-latest
@@ -25,10 +28,18 @@ jobs:
           SPORTMONKS_API_KEY: ${{ secrets.SPORTMONKS_API_KEY }}
         run: python scripts/settle_results.py
 
+      - name: Sync dashboard data for GitHub Pages
+        run: |
+          mkdir -p docs/data
+          cp data/predictions/performance.json docs/data/performance.json
+          if [ -f data/predictions/latest.json ]; then
+            cp data/predictions/latest.json docs/data/latest.json
+          fi
+
       - name: Commit performance history
         run: |
           git config user.name "football-intelligence-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/predictions/performance.json data/historical
+          git add data/predictions/performance.json data/historical docs/data/performance.json docs/data/latest.json
           git diff --cached --quiet || git commit -m "Settlement + calibration: $(date -u +'%Y-%m-%d')"
           git push
