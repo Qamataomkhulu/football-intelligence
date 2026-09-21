@@ -1,5 +1,7 @@
 # Football Intelligence Engine
 
+**Live dashboard: https://qamataomkhulu.github.io/football-intelligence/**
+
 An explainable football intelligence engine — not a tipster website.
 
 The platform reproduces a manual analysis workflow end to end:
@@ -30,6 +32,24 @@ Every number on the site traces back to an equation, not a vibe. An LLM is
 only ever used for news summarisation and narrative explanation — **never**
 to calculate a probability.
 
+## The live dashboard (GitHub Pages)
+
+`docs/index.html` is a single self-contained, no-build-step HTML page that
+fetches `docs/data/latest.json` and `docs/data/performance.json` and renders
+Ticket A, Ticket B, top market traps, calibration, and every analysed
+fixture (click a row to expand). It's published via GitHub Pages from the
+`main` branch's `/docs` folder.
+
+It refreshes automatically: every scheduled pipeline run
+(`.github/workflows/collect.yml`, `analyse.yml`, `settle.yml`) copies its
+fresh JSON output into `docs/data/` and commits it, so the live page always
+reflects the latest run — no server, no build step, nothing to babysit.
+Open the page and hit the ↻ refresh button (or just reload) to force a
+cache-busted re-fetch at any time.
+
+If you fork this repo or rename it, re-point GitHub Pages under
+**Settings → Pages → Source: Deploy from a branch → `main` / `/docs`**.
+
 ## Quickstart (no API keys required)
 
 The repo ships with sample fixture data so you can see the entire pipeline
@@ -46,10 +66,13 @@ python scripts/settle_results.py        # writes data/predictions/performance.js
 # 2. Run the API (optional - the frontend can also read the JSON directly)
 uvicorn backend.api.main:app --reload
 
-# 3. Frontend
+# 3. Frontend (Next.js dashboard - richer, needs a build step)
 cd frontend
 npm install
 npm run dev                             # http://localhost:3000
+
+# ...or just open docs/index.html via a local static server - no build needed:
+python3 -m http.server 8000 --directory docs
 ```
 
 Run the test suite:
@@ -63,7 +86,10 @@ pytest tests/ -v
 
 ```
 football-intelligence/
-├── frontend/                # Next.js + TypeScript dashboard
+├── docs/                     # Static GitHub Pages dashboard (no build step)
+│   ├── index.html            # Single-file dashboard: Ticket A/B, traps, calibration, fixtures
+│   └── data/                 # latest.json / performance.json, synced by Actions
+├── frontend/                # Next.js + TypeScript dashboard (richer, needs `npm run build`)
 │   └── app/                 # dashboard, /fixtures/[id], /performance
 ├── backend/
 │   ├── api/                 # FastAPI - thin read layer over pipeline JSON
@@ -179,10 +205,12 @@ for the scheduled workflows.
 - `.github/workflows/analyse.yml` — intraday reanalysis passes (T-120/T-60/T-30)
 - `.github/workflows/settle.yml` — post-match settlement + recalibration
 
-All three commit their JSON output back to the repo, so the frontend (which
-reads `data/predictions/*.json` directly, or via the FastAPI backend) always
-reflects the latest scheduled run without needing a live database in the
-simplest deployment.
+All three commit their JSON output back to the repo (both
+`data/predictions/*.json` and `docs/data/*.json`), so the live GitHub Pages
+dashboard and the FastAPI backend always reflect the latest scheduled run
+without needing a live database in the simplest deployment. All three
+workflows carry `permissions: contents: write` so the final `git push` step
+actually succeeds (GitHub now defaults Actions tokens to read-only).
 
 ## Status / what's stubbed
 
@@ -212,7 +240,8 @@ This is an MVP scaffold, not a finished production system:
 
 ## Stack
 
-Frontend: Next.js 14 + TypeScript · Backend: Python + FastAPI · DB:
+Frontend: static HTML (GitHub Pages, `docs/`) + Next.js 14 / TypeScript
+(richer local dashboard, `frontend/`) · Backend: Python + FastAPI · DB:
 PostgreSQL (SQLite locally) via SQLAlchemy · Analytics: pandas/NumPy-ready ·
-Automation: GitHub Actions · Suggested deployment: Vercel (frontend) +
-Render/Railway (backend).
+Automation: GitHub Actions + GitHub Pages · Optional deployment: Vercel
+(Next.js frontend) + Render/Railway (backend).
