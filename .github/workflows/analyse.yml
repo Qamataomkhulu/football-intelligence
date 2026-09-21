@@ -1,0 +1,46 @@
+name: Reanalyse (T-120 / T-60 / T-30)
+
+# Intraday reanalysis passes per the design doc's automated pipeline:
+#   T-120 minutes -> reanalyse
+#   T-60 minutes  -> confirmed XI update
+#   T-30 minutes  -> final ticket
+#
+# Cron can't target "minutes before kickoff" directly, so this runs on a
+# tight schedule during typical matchday windows and the pipeline itself
+# is responsible for deciding which fixtures are inside a T-120/60/30
+# window (see scripts/run_pipeline.py --live, not yet wired up).
+
+on:
+  schedule:
+    - cron: "*/30 11-22 * * SAT,SUN"
+    - cron: "*/30 16-22 * * TUE,WED,THU"
+  workflow_dispatch: {}
+
+jobs:
+  reanalyse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Reanalyse
+        env:
+          SPORTMONKS_API_KEY: ${{ secrets.SPORTMONKS_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python scripts/run_pipeline.py
+
+      - name: Commit updated predictions
+        run: |
+          git config user.name "football-intelligence-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/predictions/latest.json
+          git diff --cached --quiet || git commit -m "Reanalysis: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push

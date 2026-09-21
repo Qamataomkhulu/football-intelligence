@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.db
+football_intelligence.db
+
+# Node / Next.js
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env*.local
+npm-debug.log*
+
+# Env files - never commit real secrets
+.env
+.env.local
+*.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
