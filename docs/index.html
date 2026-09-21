@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Match Intelligence</title>
+<meta name="description" content="An explainable football intelligence engine - not a tipster website.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0e11;
+    --panel: #12161b;
+    --panel-raised: #161b21;
+    --border: #232932;
+    --border-strong: #333b47;
+    --text: #d7dce3;
+    --text-dim: #7c8593;
+    --text-faint: #4a515c;
+    --edge: #4fd1a5;
+    --risk: #e8a33d;
+    --danger: #e8615c;
+    --ticket-a: #6fa8ff;
+    --ticket-b: #4fd1a5;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "IBM Plex Sans", -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: var(--sans); -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--edge); }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .shell { max-width: 1180px; margin: 0 auto; padding: 28px 24px 80px; }
+
+  .topbar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 24px;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .brand { font-family: var(--mono); font-weight: 600; font-size: 15px; letter-spacing: .02em; }
+  .brand span { color: var(--text-dim); }
+  .brand .tag { font-family: var(--sans); font-weight: 400; font-size: 12px; color: var(--text-dim); margin-left: 10px; }
+  .nav { display: flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 12.5px; color: var(--text-dim); }
+  .nav a:hover { color: var(--edge); }
+  #refresh-btn { background: none; border: 1px solid var(--border-strong); color: var(--text-dim); font-family: var(--mono); font-size: 12px; padding: 5px 10px; cursor: pointer; }
+  #refresh-btn:hover { color: var(--edge); border-color: var(--edge); }
+
+  .timestamp { font-family: var(--mono); font-size: 12px; color: var(--text-faint); margin-bottom: 16px; }
+  .timestamp .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--edge); margin-right: 6px; vertical-align: middle; }
+
+  .summary-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 28px; }
+  .summary-cell { background: var(--panel); padding: 16px 18px; }
+  .summary-cell .num { font-family: var(--mono); font-size: 26px; font-weight: 600; line-height: 1; }
+  .summary-cell .label { margin-top: 6px; font-size: 12px; color: var(--text-dim); }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); margin-bottom: 24px; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .panel-title { font-family: var(--mono); font-size: 13px; letter-spacing: .04em; font-weight: 600; }
+  .panel-title.ticket-a { color: var(--ticket-a); }
+  .panel-title.ticket-b { color: var(--ticket-b); }
+  .panel-sub { font-size: 12px; color: var(--text-dim); }
+  .target-odds { font-family: var(--mono); font-size: 13px; color: var(--text-dim); }
+  .target-odds b { color: var(--text); }
+
+  .selection-row { display: grid; grid-template-columns: 1.4fr 1fr .9fr .9fr .7fr; gap: 12px; align-items: center; padding: 13px 18px; border-bottom: 1px solid var(--border); font-size: 13.5px; cursor: pointer; }
+  .selection-row:last-child { border-bottom: none; }
+  .selection-row:hover { background: var(--panel-raised); }
+  .selection-match { font-weight: 500; }
+  .selection-market { font-family: var(--mono); color: var(--text-dim); font-size: 12.5px; }
+  .selection-gap { font-family: var(--mono); text-align: right; }
+  .selection-gap.pos { color: var(--edge); }
+  .selection-gap.neg { color: var(--danger); }
+  .selection-trap { font-family: var(--mono); text-align: right; color: var(--text-dim); }
+  .selection-detail { padding: 0 18px 16px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-dim); display: none; }
+  .selection-detail.open { display: block; }
+  .selection-detail .why { color: var(--edge); }
+  .selection-detail .risk { color: var(--risk); }
+  .selection-detail ul { margin: 6px 0 0; padding-left: 18px; line-height: 1.6; }
+
+  .empty-note { padding: 24px 18px; color: var(--text-dim); font-size: 13.5px; line-height: 1.6; }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.data-table th { text-align: left; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--text-dim); font-weight: 500; padding: 10px 18px; border-bottom: 1px solid var(--border); }
+  table.data-table td { padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  table.data-table tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr:hover td { background: var(--panel-raised); }
+  .table-wrap { overflow-x: auto; }
+
+  .pill { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 2px 7px; border: 1px solid var(--border-strong); color: var(--text-dim); }
+
+  .fixture-row { cursor: pointer; }
+  .fixture-detail { display: none; padding: 0 18px 18px; border-bottom: 1px solid var(--border); }
+  .fixture-detail.open { display: block; }
+  .fixture-detail .markets-mini th, .fixture-detail .markets-mini td { padding: 7px 10px; font-size: 12.5px; }
+
+  .calib-error-good { color: var(--edge); }
+  .calib-error-ok { color: var(--risk); }
+  .calib-error-bad { color: var(--danger); }
+
+  footer.shell-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-faint); font-family: var(--mono); line-height: 1.7; }
+  footer.shell-footer a { color: var(--text-dim); border-bottom: 1px dotted var(--border-strong); }
+
+  .skeleton { padding: 40px 18px; text-align: center; color: var(--text-faint); font-family: var(--mono); font-size: 13px; }
+
+  @media (max-width: 720px) {
+    .summary-strip { grid-template-columns: repeat(2,1fr); }
+    .selection-row { grid-template-columns: 1fr; gap: 4px; }
+    .selection-gap, .selection-trap { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="topbar">
+    <div class="brand">MATCH<span>_</span>INTELLIGENCE<span class="tag">an explainable football intelligence engine</span></div>
+    <nav class="nav">
+      <a href="https://github.com/Qamataomkhulu/football-intelligence" target="_blank" rel="noopener">Source ↗</a>
+      <button id="refresh-btn" onclick="loadAll(true)">↻ refresh</button>
+    </nav>
+  </div>
+
+  <div id="app">
+    <div class="skeleton">Loading latest run…</div>
+  </div>
+
+  <footer class="shell-footer">
+    Deterministic scoring engine. Market selection is downstream of football analysis, never the reverse.
+    LLM assistance is used only for narrative summaries — never for probabilities.
+    Data refreshes automatically via <a href="https://github.com/Qamataomkhulu/football-intelligence/actions" target="_blank" rel="noopener">GitHub Actions</a>.
+  </footer>
+</div>
+
+<script>
+const DATA_URL = './data/latest.json';
+const PERF_URL = './data/performance.json';
+
+function fmtPct(n) { return n === null || n === undefined ? '—' : Math.round(n * 100) + '%'; }
+function esc(s) { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; }
+
+function ticketPanel(title, subtitle, accentClass, ticket, emptyNote, idPrefix) {
+  const sel = ticket ? ticket.selections : [];
+  const targetOdds = ticket ? ticket.target_odds : null;
+  let rows = '';
+  if (!sel.length) {
+    rows = `<div class="empty-note">${emptyNote}</div>`;
+  } else {
+    rows = sel.map((s, i) => {
+      const gapCls = s.consensus_gap_pp >= 0 ? 'pos' : 'neg';
+      const sign = s.consensus_gap_pp >= 0 ? '+' : '';
+      const rowId = `${idPrefix}-${i}`;
+      const reasons = (s.reasons || []).map(r => `<li>${esc(r)}</li>`).join('');
+      const risks = (s.risks || []).map(r => `<li>${esc(r)}</li>`).join('');
+      const ticketC = s.ticket_c && s.ticket_c.ticket_c_market
+        ? `<div style="margin-top:8px;color:var(--text)">Refined to <b>${esc(s.ticket_c.ticket_c_market)}</b> — ${esc(s.ticket_c.reason)}</div>`
+        : '';
+      return `
+        <div class="selection-row" onclick="toggle('${rowId}')">
+          <div class="selection-match">${esc(s.match)}</div>
+          <div class="selection-market">${esc(s.label)}</div>
+          <div class="mono" style="text-align:right;color:var(--text-dim)">model ${fmtPct(s.model_probability)}</div>
+          <div class="selection-gap ${gapCls}">${sign}${s.consensus_gap_pp.toFixed(1)}pp</div>
+          <div class="selection-trap">${s.trap_score.toFixed(0)}/100</div>
+        </div>
+        <div class="selection-detail" id="${rowId}">
+          ${reasons ? `<div class="why" style="margin-top:10px">WHY</div><ul>${reasons}</ul>` : ''}
+          ${risks ? `<div class="risk" style="margin-top:10px">RISKS</div><ul>${risks}</ul>` : ''}
+          ${ticketC}
+        </div>`;
+    }).join('');
+  }
+  const oddsHtml = targetOdds ? `<div class="target-odds">target <b>${targetOdds.toFixed(1)}x</b></div>` : '';
+  return `
+    <section class="panel">
+      <div class="panel-header">
+        <div><div class="panel-title ${accentClass}">${title}</div><div class="panel-sub">${subtitle}</div></div>
+        ${oddsHtml}
+      </div>
+      ${rows}
+    </section>`;
+}
+
+function trapsPanel(ticketB) {
+  const sel = ticketB ? [...ticketB.selections] : [];
+  if (!sel.length) return '';
+  sel.sort((a, b) => Math.abs(b.consensus_gap_pp) - Math.abs(a.consensus_gap_pp));
+  const top = sel.slice(0, 5);
+  const rows = top.map(t => `
+    <tr>
+      <td>${esc(t.match)}</td>
+      <td class="mono">${fmtPct(t.market_implied_probability)} implied</td>
+      <td class="mono">${esc(t.label)} <span style="color:var(--text-dim)">(${fmtPct(t.model_probability)})</span></td>
+      <td class="mono" style="text-align:right;color:var(--edge)">+${Math.abs(t.consensus_gap_pp).toFixed(1)}pp</td>
+    </tr>`).join('');
+  return `
+    <section class="panel">
+      <div class="panel-header"><div class="panel-title">TOP MARKET TRAPS</div></div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Match</th><th>Market says</th><th>Model says</th><th style="text-align:right">Edge</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </section>`;
+}
+
+function fixturesPanel(fixtures) {
+  if (!fixtures || !fixtures.length) return '';
+  const rows = fixtures.map((f, i) => {
+    const id = `fx-${i}`;
+    const marketRows = [...f.markets]
+      .sort((a, b) => (b.ratio ?? 0) - (a.ratio ?? 0))
+      .map(m => `
+        <tr>
+          <td class="mono">${esc(m.label)}</td>
+          <td class="mono" style="text-align:right">${fmtPct(m.model_probability)}</td>
+          <td class="mono" style="text-align:right;color:var(--text-dim)">${fmtPct(m.market_implied_probability)}</td>
+          <td class="mono" style="text-align:right;color:${m.ratio && m.ratio >= 1.05 ? 'var(--edge)' : 'var(--text-dim)'}">${m.ratio ? m.ratio.toFixed(2) + 'x' : '—'}</td>
+        </tr>`).join('');
+    return `
+      <div class="selection-row fixture-row" onclick="toggle('${id}')">
+        <div class="selection-match">${esc(f.home_team)} <span style="color:var(--text-faint)">vs</span> ${esc(f.away_team)}</div>
+        <div class="selection-market mono">xG ${f.expected_goals.home.toFixed(2)}–${f.expected_goals.away.toFixed(2)}</div>
+        <div class="mono" style="text-align:right;color:var(--text-dim)">rating ${f.home_power_rating.rating.toFixed(0)}</div>
+        <div class="mono" style="text-align:right;color:var(--text-dim)">rating ${f.away_power_rating.rating.toFixed(0)}</div>
+        <div class="pill">expand ▾</div>
+      </div>
+      <div class="fixture-detail" id="${id}">
+        <div class="table-wrap">
+          <table class="data-table markets-mini">
+            <thead><tr><th>Market</th><th style="text-align:right">Model</th><th style="text-align:right">Market implied</th><th style="text-align:right">Ratio</th></tr></thead>
+            <tbody>${marketRows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join('');
+  return `
+    <section class="panel">
+      <div class="panel-header"><div class="panel-title">ALL ANALYSED FIXTURES</div><div class="panel-sub">${fixtures.length} fixtures</div></div>
+      ${rows}
+    </section>`;
+}
+
+function performancePanel(perf) {
+  if (!perf || !perf.n_settled) return '';
+  const rows = perf.calibration.map(b => {
+    const err = b.calibration_error;
+    const cls = Math.abs(err) < 0.05 ? 'calib-error-good' : Math.abs(err) < 0.15 ? 'calib-error-ok' : 'calib-error-bad';
+    return `<tr>
+      <td>${esc(b.bucket)}</td>
+      <td style="text-align:right">${b.n}</td>
+      <td style="text-align:right">${Math.round(b.actual_hit_rate*100)}%</td>
+      <td style="text-align:right" class="${cls}">${err>=0?'+':''}${Math.round(err*100)}pp</td>
+    </tr>`;
+  }).join('');
+  return `
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">MODEL CALIBRATION</div>
+        <div class="mono" style="font-size:13px;color:var(--text-dim)">${perf.n_settled} settled · Brier score <b style="color:var(--text)">${perf.brier_score}</b></div>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Predicted bucket</th><th style="text-align:right">n</th><th style="text-align:right">Actual hit rate</th><th style="text-align:right">Calibration error</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </section>`;
+}
+
+function toggle(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+window.toggle = toggle;
+window.loadAll = loadAll;
+
+async function loadAll(forceRefresh) {
+  const app = document.getElementById('app');
+  try {
+    const bust = forceRefresh ? `?t=${Date.now()}` : '';
+    const [dataRes, perfRes] = await Promise.all([
+      fetch(DATA_URL + bust),
+      fetch(PERF_URL + bust).catch(() => null),
+    ]);
+
+    if (!dataRes.ok) throw new Error('No pipeline output yet');
+    const data = await dataRes.json();
+    const perf = perfRes && perfRes.ok ? await perfRes.json() : null;
+
+    const s = data.summary;
+    const generated = new Date(data.generated_at);
+
+    app.innerHTML = `
+      <div class="timestamp"><span class="dot"></span>Last run: ${generated.toUTCString()}</div>
+      <div class="summary-strip">
+        <div class="summary-cell"><div class="num mono">${s.matches_scanned}</div><div class="label">matches scanned</div></div>
+        <div class="summary-cell"><div class="num mono">${s.matches_analysed}</div><div class="label">matches analysed</div></div>
+        <div class="summary-cell"><div class="num mono" style="color:var(--ticket-a)">${s.ticket_a_count}</div><div class="label">structural value picks</div></div>
+        <div class="summary-cell"><div class="num mono" style="color:var(--ticket-b)">${s.ticket_b_count}</div><div class="label">consensus breakers</div></div>
+      </div>
+      ${ticketPanel('TICKET A — STRUCTURAL VALUE', 'Strongest evidence-to-risk relationship', 'ticket-a', data.tickets.ticket_a,
+        "No fixture cleared the Ticket A consensus threshold today - the market and the model are broadly in agreement.", 'ta')}
+      ${ticketPanel('TICKET B — CONSENSUS BREAKER', 'Where the market is most likely wrong, and the market that best expresses it', 'ticket-b', data.tickets.ticket_b,
+        "No fixture produced a surviving consensus gap today.", 'tb')}
+      ${trapsPanel(data.tickets.ticket_b)}
+      ${performancePanel(perf)}
+      ${fixturesPanel(data.fixtures)}
+    `;
+  } catch (err) {
+    app.innerHTML = `<div class="panel"><div class="empty-note">
+      No pipeline output yet, or it couldn't be loaded (${esc(err.message)}).<br>
+      Run the "Collect &amp; Analyse" GitHub Action, or run <span class="mono">python scripts/run_pipeline.py</span> locally and push, to populate this dashboard.
+    </div></div>`;
+  }
+}
+
+loadAll();
+// Passive refresh for anyone leaving the tab open - data itself only
+// changes once GitHub Actions commits a new run, so this just re-checks.
+setInterval(() => loadAll(true), 30 * 60 * 1000);
+</script>
+</body>
+</html>
