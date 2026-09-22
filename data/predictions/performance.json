@@ -1,0 +1,91 @@
+{
+  "n_settled": 10,
+  "calibration": [
+    {
+      "bucket": "50-60%",
+      "n": 1,
+      "predicted_midpoint": 0.55,
+      "actual_hit_rate": 0.0,
+      "calibration_error": -0.55
+    },
+    {
+      "bucket": "60-70%",
+      "n": 2,
+      "predicted_midpoint": 0.65,
+      "actual_hit_rate": 0.5,
+      "calibration_error": -0.15
+    },
+    {
+      "bucket": "70-75%",
+      "n": 3,
+      "predicted_midpoint": 0.725,
+      "actual_hit_rate": 0.667,
+      "calibration_error": -0.058
+    },
+    {
+      "bucket": "75-85%",
+      "n": 3,
+      "predicted_midpoint": 0.8,
+      "actual_hit_rate": 1.0,
+      "calibration_error": 0.2
+    },
+    {
+      "bucket": "85-100%",
+      "n": 0,
+      "predicted_midpoint": 0.93,
+      "actual_hit_rate": 0.0,
+      "calibration_error": -0.93
+    }
+  ],
+  "brier_score": 0.1735,
+  "hit_rate_by_market": {
+    "1X": {
+      "n": 4,
+      "wins": 3,
+      "hit_rate": 0.75,
+      "avg_model_probability": 0.72
+    },
+    "BTTS_OVER_2_5": {
+      "n": 1,
+      "wins": 0,
+      "hit_rate": 0.0,
+      "avg_model_probability": 0.72
+    },
+    "TEAM_SCORE_BOTH_HALVES": {
+      "n": 1,
+      "wins": 0,
+      "hit_rate": 0.0,
+      "avg_model_probability": 0.14
+    },
+    "X2": {
+      "n": 1,
+      "wins": 1,
+      "hit_rate": 1.0,
+      "avg_model_probability": 0.63
+    },
+    "HOME_PLUS_1_5": {
+      "n": 1,
+      "wins": 1,
+      "hit_rate": 1.0,
+      "avg_model_probability": 0.81
+    },
+    "WIN_HOME": {
+      "n": 1,
+      "wins": 0,
+      "hit_rate": 0.0,
+      "avg_model_probability": 0.58
+    },
+    "OVER_1_5": {
+      "n": 1,
+      "wins": 1,
+      "hit_rate": 1.0,
+      "avg_model_probability": 0.83
+    }
+  },
+  "loss_type_breakdown": {
+    "injury_overweighted": 1,
+    "market_price_wrong": 1,
+    "goal_market_too_specific": 1,
+    "opponent_underestimated": 1
+  }
+}
